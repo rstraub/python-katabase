@@ -1,4 +1,4 @@
-from fizzbuzz import fizzbuzz
+from katas.fizzbuzz import fizzbuzz
 
 
 def test_should_return_number():
@@ -15,4 +15,3 @@ def test_should_return_buzz_if_divisible_by_five():
 
 def test_should_return_fizzbuzz_if_divisible_by_five_and_three():
     assert fizzbuzz(15) == "FizzBuzz"
-
