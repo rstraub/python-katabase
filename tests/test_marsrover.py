@@ -30,3 +30,18 @@ def test_rover_can_move_backwards(direction, expected_x, expected_y):
     moved = rover.move(["b"])
 
     assert moved == MarsRover(expected_x, expected_y, direction)
+
+
+@pytest.mark.skip(reason="todo")
+def test_rover_can_turn_left():
+    pass
+
+
+@pytest.mark.skip(reason="todo")
+def test_rover_can_turn_right():
+    pass
+
+
+@pytest.mark.skip(reason="todo")
+def test_rover_can_execute_multiple_commands():
+    pass
