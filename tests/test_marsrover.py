@@ -26,7 +26,6 @@ def test_rover_can_move_forwards(direction, expected_x, expected_y):
     [("N", 5, 4), ("S", 5, 6), ("W", 6, 5), ("E", 4, 5)],
 )
 def test_rover_can_move_backwards(direction, expected_x, expected_y):
-    pytest.skip()
     rover = MarsRover(5, 5, direction)
     moved = rover.move(["b"])
 
