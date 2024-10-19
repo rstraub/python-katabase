@@ -10,7 +10,10 @@ def test_rover_starts_with_coordinate_and_direction():
 
 
 def test_rover_can_move_forwards():
-    pass
+    rover = MarsRover(1, 0, "N")
+    moved = rover.move("f")
+
+    assert moved == MarsRover(2, 0, "N")
 
 
 def test_rover_can_move_backwards():
