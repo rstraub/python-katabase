@@ -9,6 +9,11 @@ class MarsRover:
     direction: str
 
     def move(self, commands: List[str]) -> "MarsRover":
+        new_y, new_x = self.move_forwards()
+
+        return replace(self, y=new_y, x=new_x)
+
+    def move_forwards(self):
         new_y = self.y
         new_x = self.x
 
@@ -22,5 +27,4 @@ class MarsRover:
             new_x = self.x + 1
         else:
             raise ValueError("unknown direction!")
-
-        return replace(self, y=new_y, x=new_x)
+        return new_y, new_x

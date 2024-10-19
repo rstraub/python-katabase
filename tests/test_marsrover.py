@@ -16,10 +16,18 @@ def test_rover_starts_with_coordinate_and_direction():
 )
 def test_rover_can_move_forwards(direction, expected_x, expected_y):
     rover = MarsRover(5, 5, direction)
-    moved = rover.move("f")
+    moved = rover.move(["f"])
 
     assert moved == MarsRover(expected_x, expected_y, direction)
 
 
-def test_rover_can_move_backwards():
-    pass
+@pytest.mark.parametrize(
+    "direction, expected_x, expected_y",
+    [("N", 5, 4), ("S", 5, 6), ("W", 6, 5), ("E", 4, 5)],
+)
+def test_rover_can_move_backwards(direction, expected_x, expected_y):
+    pytest.skip()
+    rover = MarsRover(5, 5, direction)
+    moved = rover.move(["b"])
+
+    assert moved == MarsRover(expected_x, expected_y, direction)
