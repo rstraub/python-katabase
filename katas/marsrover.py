@@ -9,22 +9,24 @@ class MarsRover:
     direction: str
 
     def move(self, commands: List[str]) -> "MarsRover":
-        new_y, new_x = self.move_forwards()
+        new_coordinates = self.move_forwards()
 
-        return replace(self, y=new_y, x=new_x)
+        return replace(self, y=new_coordinates.y, x=new_coordinates.x)
 
-    def move_forwards(self):
-        new_y = self.y
-        new_x = self.x
-
+    def move_forwards(self) -> "Coordinate":
         if self.direction == "N":
-            new_y = self.y + 1
+            return Coordinate(self.x, self.y + 1)
         elif self.direction == "S":
-            new_y = self.y - 1
+            return Coordinate(self.x, self.y - 1)
         elif self.direction == "W":
-            new_x = self.x - 1
+            return Coordinate(self.x - 1, self.y)
         elif self.direction == "E":
-            new_x = self.x + 1
+            return Coordinate(self.x + 1, self.y)
         else:
             raise ValueError("unknown direction!")
-        return new_y, new_x
+
+
+@dataclass(frozen=True)
+class Coordinate:
+    x: int
+    y: int
