@@ -32,9 +32,15 @@ def test_rover_can_move_backwards(direction, expected_x, expected_y):
     assert moved == MarsRover(expected_x, expected_y, direction)
 
 
-@pytest.mark.skip(reason="todo")
-def test_rover_can_turn_left():
-    pass
+@pytest.mark.parametrize(
+    "direction, expected_direction",
+    [("N", "W"), ("S", "E"), ("W", "S"), ("E", "N")],
+)
+def test_rover_can_turn_left(direction, expected_direction):
+    rover = MarsRover(5, 5, direction)
+    moved = rover.move(["l"])
+
+    assert moved == MarsRover(5, 5, expected_direction)
 
 
 @pytest.mark.skip(reason="todo")
