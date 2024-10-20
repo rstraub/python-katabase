@@ -1,5 +1,6 @@
 from dataclasses import dataclass, replace
 from enum import Enum, auto
+from functools import reduce
 from typing import List
 
 
@@ -20,25 +21,28 @@ class MarsRover:
     _RIGHT = "r"
 
     def move(self, commands: List[str]) -> "MarsRover":
-        first_command = commands[0]
+        move_fn = lambda acc, command: acc._move_once(command)
 
+        return reduce(move_fn, commands, self)
+
+    def _move_once(self, move: str) -> "MarsRover":
         new_coordinates = Coordinate(self.x, self.y)
         new_direction = self.direction
 
-        if first_command == self._FORWARDS:
-            new_coordinates = self.move_forwards()
-        elif first_command == self._BACKWARDS:
-            new_coordinates = self.move_backwards()
-        elif first_command == self._LEFT:
-            new_direction = self.turn_left()
-        elif first_command == self._RIGHT:
-            new_direction = self.turn_right()
+        if move == self._FORWARDS:
+            new_coordinates = self._move_forwards()
+        elif move == self._BACKWARDS:
+            new_coordinates = self._move_backwards()
+        elif move == self._LEFT:
+            new_direction = self._turn_left()
+        elif move == self._RIGHT:
+            new_direction = self._turn_right()
 
         return replace(
             self, y=new_coordinates.y, x=new_coordinates.x, direction=new_direction
         )
 
-    def move_forwards(self) -> "Coordinate":
+    def _move_forwards(self) -> "Coordinate":
         if self.direction == self._NORTH:
             return Coordinate(self.x, self.y + 1)
         elif self.direction == self._SOUTH:
@@ -50,7 +54,7 @@ class MarsRover:
         else:
             raise ValueError("unknown direction!")
 
-    def move_backwards(self) -> "Coordinate":
+    def _move_backwards(self) -> "Coordinate":
         if self.direction == self._NORTH:
             return Coordinate(self.x, self.y - 1)
         elif self.direction == self._SOUTH:
@@ -62,7 +66,7 @@ class MarsRover:
         else:
             raise ValueError("unknown direction!")
 
-    def turn_left(self) -> str:
+    def _turn_left(self) -> str:
         if self.direction == self._NORTH:
             return self._WEST
         elif self.direction == self._SOUTH:
@@ -74,7 +78,7 @@ class MarsRover:
         else:
             raise ValueError("unknown direction!")
 
-    def turn_right(self) -> str:
+    def _turn_right(self) -> str:
         if self.direction == self._NORTH:
             return self._EAST
         elif self.direction == self._SOUTH:

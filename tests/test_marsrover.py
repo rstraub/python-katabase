@@ -54,6 +54,8 @@ def test_rover_can_turn_right(direction, expected_direction):
     assert moved == MarsRover(5, 5, expected_direction)
 
 
-@pytest.mark.skip(reason="todo")
 def test_rover_can_execute_multiple_commands():
-    pass
+    rover = MarsRover(0, 0, "E")
+    moved = rover.move(["f", "l", "f"])
+
+    assert moved == MarsRover(1, 1, "N")
