@@ -30,8 +30,8 @@ def test_create_bus_drivers():
     routes = ((1, 2), (3, 2))
 
     expected = (
-        {"gossips": {"gossip 1"}, "route": (1, 2)},
-        {"gossips": {"gossip 2"}, "route": (3, 2)},
+        {"gossips": {"gossip 1"}, "route": (1, 2), "currentStop": 1},
+        {"gossips": {"gossip 2"}, "route": (3, 2), "currentStop": 3},
     )
 
     assert create_bus_drivers(routes) == expected
@@ -39,16 +39,16 @@ def test_create_bus_drivers():
 
 def test_stop_exchanges_gossip_when_drivers_are_at_same_stop():
     drivers = (
-        {"gossips": {"gossip 1"}, "route": (1, 2)},
-        {"gossips": {"gossip 2"}, "route": (3, 2)},
+        {"gossips": {"gossip 1"}, "route": (1, 3), "currentStop": 1},
+        {"gossips": {"gossip 2"}, "route": (1, 2), "currentStop": 1},
     )
 
     expected = (
-        {"gossips": {"gossip 1", "gossip 2"}, "route": (1, 2)},
-        {"gossips": {"gossip 2", "gossip 1"}, "route": (3, 2)},
+        {"gossips": {"gossip 2", "gossip 1"}, "route": (1, 3), "currentStop": 1},
+        {"gossips": {"gossip 2", "gossip 1"}, "route": (1, 2), "currentStop": 1},
     )
 
-    assert stop(drivers, 1) == None
+    assert stop(drivers, 0) == expected
 
 
 def test_stop_should_not_exchange_gossip_when_drivers_are_at_different_stops():
