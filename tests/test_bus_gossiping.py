@@ -1,4 +1,4 @@
-from katas.bus_gossiping import create_bus_drivers, exchange_gossips, parse_routes
+from katas.bus_gossiping import create_bus_drivers, exchange_gossips, parse_routes, stop
 
 
 def test_bus_drivers_meet():
@@ -30,8 +30,26 @@ def test_create_bus_drivers():
     routes = ((1, 2), (3, 2))
 
     expected = (
-        {"gossips": ["gossip 1"], "route": (1, 2)},
-        {"gossips": ["gossip 2"], "route": (3, 2)},
+        {"gossips": {"gossip 1"}, "route": (1, 2)},
+        {"gossips": {"gossip 2"}, "route": (3, 2)},
     )
 
     assert create_bus_drivers(routes) == expected
+
+
+def test_stop_exchanges_gossip_when_drivers_are_at_same_stop():
+    drivers = (
+        {"gossips": {"gossip 1"}, "route": (1, 2)},
+        {"gossips": {"gossip 2"}, "route": (3, 2)},
+    )
+
+    expected = (
+        {"gossips": {"gossip 1", "gossip 2"}, "route": (1, 2)},
+        {"gossips": {"gossip 2", "gossip 1"}, "route": (3, 2)},
+    )
+
+    assert stop(drivers, 1) == None
+
+
+def test_stop_should_not_exchange_gossip_when_drivers_are_at_different_stops():
+    pass

@@ -27,7 +27,7 @@ def parse_routes(input: str) -> Routes:
     return tuple(result)
 
 
-Driver = Dict[str, Union[list[str], Route]]
+Driver = Dict[str, Union[set[str], Route]]
 Drivers = tuple[Driver, ...]
 
 
@@ -36,6 +36,10 @@ def create_bus_drivers(routes: Routes) -> Drivers:
 
     for index, route in enumerate(routes):
         gossip_number = index + 1
-        result.append({"gossips": [f"gossip {gossip_number}"], "route": route})
+        result.append({"gossips": {f"gossip {gossip_number}"}, "route": route})
 
     return tuple(result)
+
+
+def stop(drivers: Drivers, minute: int) -> Drivers:
+    return drivers
