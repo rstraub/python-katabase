@@ -5,6 +5,15 @@ def exchange_gossips(input: str) -> str:
 
 def parse_routes(input: str) -> tuple[tuple[str]]:
     lines = input.split("\n")
-    routes = map(lambda s: s.split(" "), lines)
 
-    return tuple(routes)
+    result = []
+    for line in lines:
+        driver_stops = []
+        stops = line.split(" ")
+
+        for stop in stops:
+            driver_stops.append(int(stop))
+
+        result.append(tuple(driver_stops))
+
+    return tuple(result)
